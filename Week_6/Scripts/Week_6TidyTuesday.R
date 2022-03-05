@@ -8,6 +8,7 @@
 library(tidytuesdayR)
 library(tidyverse)
 library(here)
+library(beyonce)
 
 ### Load Data ###
 tuesdata <- tidytuesdayR::tt_load('2022-03-01')
@@ -35,8 +36,10 @@ FuelData%>% # Plotting my object
              fill = FUEL_TYPE_CODE))+
   geom_boxplot(aes(fill = FUEL_TYPE_CODE))+ # Adding filled color to boxplot
   labs(title = "Coordinates of Different Fuel Types in Los Angeles",
-       fill = "Fuel Type")+ # Labeling
+       fill = "Fuel Type",
+       caption = "Tidy Tuesday, Week 6 2022-03-01, Alternative fuel Stations")+ # Labeling
   theme(plot.title = element_text(hjust = 0.5),
         panel.border = element_rect(fill = NA,
-                                    color = "black")) # Cleaning
+                                    color = "black"))+
+  scale_color_manual(values = beyonce_palette(60))
   
