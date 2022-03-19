@@ -1,0 +1,54 @@
+---
+title: "Week 8 Tidy Tuesday"
+author: "Brandon"
+date: "3/18/2022"
+output: 
+  html_document:
+    TOC: TRUE
+    TOC_FLOAT: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "../Output")
+```
+
+## Intro
+Today I will be making a table of all the Brandons throughout time. 
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(kableExtra)
+library(ymlthis)
+library(here)
+```
+
+## Dataset
+
+```{r, echo=FALSE}
+babynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv')
+
+```
+## Data Analysis
+```{r}
+BabyBoy<-babynames%>% #Setting data
+  drop_na()%>%
+  filter(sex == "M",
+         name == "Brandon")%>% #Filtering only Brandons
+  rename("Year" = year, #Changing titles appropriately,
+         "Name"= name,
+         "Sex" = sex,
+         "Clones" = n,
+         "Probability"= prop)
+
+view(BabyBoy)
+```
+## Table 
+```{r, clone1}
+BabyBoy%>%
+  group_by(Year, Sex, Name, Clones, Probability)%>%
+  kbl(caption = "Attack of the Clones")%>% # All the other Brandons throughout time, I'm in 1998 somewhere
+  kable_material_dark()
+  
+```
+
