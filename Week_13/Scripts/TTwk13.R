@@ -13,7 +13,6 @@ library(gganimate)
 library(magick)
 library(lubridate)
 library(tidytext)
-library(wordcloud2)
 
 ### Load Data ###
 
@@ -28,12 +27,12 @@ answers <- times %>% #new object made
   filter(!is.na(answer)) %>% #remove NAs
   select(answer) #selected column
 
-view(answers) #view new object
+view(answers) 
 
-Top10<-answers %>% #new object words
-  count(answer) %>% # count all the answers
+Top10<-answers %>% # new object words
+  count(answer) %>% # answers 
   arrange(desc(n))%>% # sort the answers
-  slice(1:10) #top 10
+  slice(1:10) # top 10 ranked
 
 view(Top10)
 
