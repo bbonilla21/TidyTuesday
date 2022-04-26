@@ -36,3 +36,5 @@ Top10<-answers %>% #new object words
   slice(1:10) #top 10
 
 view(Top10)
+
+Top10 #Listing the Top 10 ranked answers
