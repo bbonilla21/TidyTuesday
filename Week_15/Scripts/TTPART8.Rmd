@@ -1,0 +1,65 @@
+---
+title: "TT 8"
+author: "Brandon"
+date: "5/07/2022"
+output:
+  html_document:
+    TOC: TRUE
+    TOC_FLOAT: TRUE
+      
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = FALSE, message = FALSE, fig.path = "../Output")
+```
+
+## load libraries
+
+```{r}
+library(tidyverse)
+library(here)
+library(ymlthis)
+library(kableExtra)
+```
+
+## Load Data
+
+```{r}
+nyt_titles <- readr::read_tsv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-05-10/nyt_titles.tsv')
+nyt_full <- readr::read_tsv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-05-10/nyt_full.tsv')
+
+view(nyt_full)
+view(nyt_titles)
+
+```
+
+## Data Analysis
+```{r}
+SK<-nyt_titles%>%
+  filter(author == "Stephen King")%>%
+  select(author, best_rank, title, year, first_week, total_weeks)%>%
+  rename("Author"=author,
+         "Best Rank"=best_rank,
+         "Title"=title,
+         "Year"=year,
+         "First Week"=first_week,
+         "Total Weeks"=total_weeks)
+view(SK)
+
+SKrank<-SK%>%
+  arrange(desc(Year))
+```
+
+## Table 
+```{r, Table}
+Table1<-SKrank%>%
+  group_by(Author, Title)%>%
+  kbl(caption = "Stephen King Books by Year")%>%
+  kable_material_dark(c("striped"), 
+                      full_width = FALSE, fixed_thead = T, position = "center", 
+                      font_size = 12) %>%
+  row_spec(0, bold = T, color = "black", background = "red")
+Table1
+
+```
+
